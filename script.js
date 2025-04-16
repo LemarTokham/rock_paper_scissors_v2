@@ -1,6 +1,7 @@
-console.log("Hello, Console")
 const choices = ["rock", "paper", "scissors"]
+
 let humanScore = 0, computerScore = 0
+
 function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)]
 }
@@ -13,6 +14,13 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice){
+    if (humanScore == 5){
+        console.log("You Won")
+        return
+    } else if (computerScore == 5){
+        console.log("Computer Won")
+        return
+    }
     // rock vs paper
     if (humanChoice == "rock" && computerChoice == "paper") {
         computerScore += 1;
@@ -55,23 +63,46 @@ function playRound(humanChoice, computerChoice){
         computerScore += 1;
         console.log("Computer Wins")
     }
-}
 
-let rounds = 0;
-while (rounds < 5){
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection)
+    // Check for win after updating the scores
     console.log(humanScore, computerScore)
-    rounds ++;
+    if (humanScore == 5){
+        console.log("You Won, Play again?")
+        return
+    } else if (computerScore == 5){
+        console.log("Computer Won, Play again?")
+        return
+    }
+    // First person to get to 5 wins is the winner
+    
 }
+// Container to house the buttons
+const container = document.querySelector('.btn-container')
+container.style.border = "1px solid black"
 
-if (humanScore > computerScore){
-    console.log("You Won!")
-} else if (humanScore < computerScore){
-    console.log("You Lose!")
-} else {
-    console.log("Draw")
-}
+// Score tracker
+let score = 0;
 
-console.log("This is a new branch!")
+// Buttons
+const rock = document.createElement("button")
+const paper = document.createElement("button")
+const scissors = document.createElement("button")
+
+rock.addEventListener("click", () => {
+    playRound("rock", getComputerChoice())
+})
+rock.textContent = "Rock"
+container.appendChild(rock)
+
+paper.addEventListener("click", () => {
+    playRound("paper", getComputerChoice())
+})
+paper.textContent = "Paper"
+container.appendChild(paper)
+
+scissors.addEventListener("click", () => {
+    playRound("scissors", getComputerChoice())
+})
+scissors.textContent = "Scissors"
+container.appendChild(scissors)
+
