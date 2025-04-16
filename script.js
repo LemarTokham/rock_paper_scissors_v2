@@ -2,6 +2,8 @@ const choices = ["rock", "paper", "scissors"]
 
 let humanScore = 0, computerScore = 0
 
+
+// Choice functions
 function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)]
 }
@@ -13,6 +15,7 @@ function getHumanChoice() {
     return userChoice
 }
 
+// Gameplay functions
 function playRound(humanChoice, computerChoice){
     if (humanScore == 5){
         console.log("You Won")
@@ -68,14 +71,29 @@ function playRound(humanChoice, computerChoice){
     console.log(humanScore, computerScore)
     if (humanScore == 5){
         console.log("You Won, Play again?")
+        // Show restart button
+        restart.style.display = ''
         return
     } else if (computerScore == 5){
         console.log("Computer Won, Play again?")
+        // Show restart button
+        restart.style.display = ''
         return
     }
     // First person to get to 5 wins is the winner
     
 }
+
+
+function handleEnd(){
+    // Reset player scores to play again
+    humanScore = 0, computerScore = 0
+    // Hide restart button
+    restart.style.display = 'none'
+}
+
+
+
 // Container to house the buttons
 const container = document.querySelector('.btn-container')
 container.style.border = "1px solid black"
@@ -87,6 +105,7 @@ let score = 0;
 const rock = document.createElement("button")
 const paper = document.createElement("button")
 const scissors = document.createElement("button")
+const restart = document.createElement("button")
 
 rock.addEventListener("click", () => {
     playRound("rock", getComputerChoice())
@@ -105,4 +124,13 @@ scissors.addEventListener("click", () => {
 })
 scissors.textContent = "Scissors"
 container.appendChild(scissors)
+
+// Restart button
+restart.style.display = 'none'
+restart.textContent = 'Play Again'
+restart.addEventListener('click', () => {
+    handleEnd()
+})
+container.appendChild(restart)
+
 
