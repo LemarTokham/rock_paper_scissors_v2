@@ -17,65 +17,68 @@ function getHumanChoice() {
 
 // Gameplay functions
 function playRound(humanChoice, computerChoice){
+    // Prevent further changes to score if game is over
     if (humanScore == 5){
-        console.log("You Won")
         return
     } else if (computerScore == 5){
-        console.log("Computer Won")
         return
     }
     // rock vs paper
     if (humanChoice == "rock" && computerChoice == "paper") {
         computerScore += 1;
-        console.log("Computer Wins")
+        computerDiv.textContent = `Computer ${computerScore}`
+        statusDiv.textContent = `You Lost - ${computerChoice} beats ${humanChoice}`
     }
     // rock vs rock
     if (humanChoice == "rock" && computerChoice == "rock") {
-        console.log("Draw")
+        statusDiv.textContent = 'Draw'
     }
     // rock vs scissors
     if (humanChoice == "rock" && computerChoice == "scissors") {
         humanScore += 1;
-        console.log("You Win")
+        userDiv.textContent = `Player ${humanScore}`
+        statusDiv.textContent = `You Win! - ${humanChoice} beats ${computerChoice}`
     }
     // paper vs rock
     if (humanChoice == "paper" && computerChoice == "rock") {
         humanScore += 1;
-        console.log("You Win")
+        userDiv.textContent = `Player ${humanScore}`
+        statusDiv.textContent = `You Win! - ${humanChoice} beats ${computerChoice}`
     }
     // paper vs paper
     if (humanChoice == "paper" && computerChoice == "paper") {
-        console.log("Draw")
+        statusDiv.textContent = 'Draw'
     }
     // paper vs scissors
     if (humanChoice == "paper" && computerChoice == "scissors") {
         computerScore += 1;
-        console.log("Computer Wins")
+        computerDiv.textContent = `Computer ${computerScore}`
+        statusDiv.textContent = `You Lost - ${computerChoice} beats ${humanChoice}`
     }
     // scissors vs paper
     if (humanChoice == "scissors" && computerChoice == "paper") {
         humanScore += 1;
-        console.log("You Win")
+        userDiv.textContent = `Player ${humanScore}`
+        statusDiv.textContent = `You Win! - ${humanChoice} beats ${computerChoice}`
     }
     // scissors vs scissors
     if (humanChoice == "scissors" && computerChoice == "scissors") {
-        console.log("Draw")
+       statusDiv.textContent = 'Draw'
     }
     // scissors vs rock
     if (humanChoice == "scissors" && computerChoice == "rock") {
         computerScore += 1;
-        console.log("Computer Wins")
+        computerDiv.textContent = `Computer ${computerScore}`
+        statusDiv.textContent = `You Lost - ${computerChoice} beats ${humanChoice}`
     }
 
     // Check for win after updating the scores
     console.log(humanScore, computerScore)
     if (humanScore == 5){
-        console.log("You Won, Play again?")
         // Show restart button
         restart.style.display = ''
         return
     } else if (computerScore == 5){
-        console.log("Computer Won, Play again?")
         // Show restart button
         restart.style.display = ''
         return
@@ -88,8 +91,13 @@ function playRound(humanChoice, computerChoice){
 function handleEnd(){
     // Reset player scores to play again
     humanScore = 0, computerScore = 0
+    // Reset UI
+    userDiv.textContent = `Player ${humanScore}`
+    computerDiv.textContent = `Computer ${computerScore}`
+    statusDiv.textContent = 'Choose a Weapon'
     // Hide restart button
     restart.style.display = 'none'
+
 }
 
 
@@ -100,6 +108,23 @@ container.style.border = "1px solid black"
 
 // Score tracker
 let score = 0;
+
+
+// UI
+// Status
+const statusDiv = document.createElement('div')
+statusDiv.textContent = 'Choose a Weapon'
+container.appendChild(statusDiv)
+// Scoreboard
+const userDiv = document.createElement('div')
+const computerDiv = document.createElement('div')
+
+userDiv.textContent = `Player ${humanScore}`
+computerDiv.textContent = `Computer ${computerScore}`
+
+container.appendChild(userDiv)
+container.appendChild(computerDiv)
+
 
 // Buttons
 const rock = document.createElement("button")
